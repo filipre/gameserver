@@ -14,3 +14,7 @@ Takes requests from smartphone clients and takes action or returns information
 $ docker build -t my-golang-app .
 $ docker run -it --rm --name my-running-app my-golang-app
 ```
+
+## Travis
+
+let's trigger the first build with docker
