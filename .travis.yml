@@ -17,10 +17,12 @@ script:
   - docker ps | grep -q gameserver1
 
 # after_success:
+# deploy to docker hub?
 
 # after_failure:
 
 before_deploy:
+  - chmod +x deploy.sh
 
 deploy:
   skip_cleanup: true
