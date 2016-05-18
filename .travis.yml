@@ -1,39 +1,25 @@
 sudo: required
-
 services:
-  - docker
-
+- docker
 language: go
-
 go:
-  - 1.6
-
-# before_install:
-
+- 1.6
 install:
-  - docker build -t gameserver .
-  - docker run -d -p 127.0.0.1:80:8080 --name gameserver1 gameserver
-
-# before_script:
-
+- docker build -t gameserver .
+- docker run -d -p 127.0.0.1:80:8080 --name gameserver1 gameserver
 script:
-  - docker ps | grep -q gameserver1
-
-# after_success:
-
-# after_failure:
-
-before_deploy: # docker login?
-
+- docker ps | grep -q gameserver1
+# before_deploy:
 deploy:
   skip_cleanup: true
   provider: script
-  script: "./deploy.sh" # deploy to docker hub?
+  script: "./deploy.sh"
   on:
     branch: master
+env:
+  global:
+    - secure: "uqUehjvq461ssGT/NWs6TGUULH7+bEBW9esq+eIqFPP3VmUhasvGjtzi3v2kD9UvqgpsmLuRLMCpo03Vz7n6pqPNZ6iQNPQk3Xl065mLf0zMDbsKpq8KYJtkYcy4A/pQA6J/IPRzz0mUVeR/K169yhLqTR8eVgOC4FktH8xgptOlXlYxmVFDPkCUX+pKodhmiHethIl5DtuCVRj0LE0jkpkE7fflrZYu7kO2mdr2u34zoViwGvrhBhljMq/oA2Vv/2TeL2MA5EQZxd3Jle6YXkh2Gu8YN0uiSn6KmysDh87aVSqOUDFE3VX2XgC1Pen7/HF0NRybvQLhbeukQhZmZGAs7BWVcBuUbH5+LQ3v5bssIWOlfGsgj5GvlJFn8oleKG9jA8GX/8rYP0RAhN0HCjdGDqoa/ZZEzzwGtPAeUyKSPMPZwtCylnGANEiYxaLeY665RJdzGpoDMJHO3lXzOs0rOepeOxgHV+7x5XFefNEo6PCFKpigxlFRCSuo8neC00GJQtCJWa0qz3iXLY446gyrL7atOJKOSLfsks/9pzR6KYuyUCj68g1jvx+CV3RAQle9+ZrOPPP8AGnS0M46J5ye2jSmX3a+A9DSxTCcLF72fFmLFWciD5gtTbz4odIYhj57ndHwwJMbYrUGynWdPy032AgxeF5aIL3gtCHGPNg=" # DOCKER_EMAIL
+    - secure: "4Zsfh3S1+NEypNwFcVHtYgdLofx8YbF51PKIN1PTc3LopytHp52EBJgZNduA5M6vWfp3Ri0zLMKrXF1u/5IggoBSA32+G1dW2Dwz3oZ5oN/yTHdV1ohlJN+nd3teURYfvJzXTaWQSysxlZKlVaGan35i+REHDbqHU2bnfd+8bQaIsl5BXsWI1oWRvVuSNhBWsxH40xIUOmGGuASyG5KZQIt4Qtnwi1miBlpOt1aGHJmZWKtXt1k/Ktx1/gJBLvi4w31+3FRLJ0/QUjbtIvo6aQpBlkBd/gwZIKHqn9jKYRnn293Zn6f5t6l7EKZnXmItp3ApyTmZwt8Uf/CGlJ4MitBJilNaaG29PC6Ffchpr95iKJADiRBi1+t6CCOUmSTJwi/gniHbBrZ+ZYBsGBhvnl7gCzDLhC2VcK3GfPr6sRN8QTMXHpnGUXZ9BvjTsa0nj3FV7JPsh09is6c7Kf9pmUZVhmLFV7l8wtAzJkv2y9PsLJyLjxAHJ850q02oPoxr7aRCpmlNqgNXTMz34c+aWs0waT0yXtgpPHiVM1ZWBNf+YT2E1HwLCyOfJLp98jewnsE+pr8Y8qbyvG7yD4wDHo2ZpXEkuTFBnrSEand0SGsSA6W/r6nsGjuBLV2/oiyAHlPNq5yDUVy/xYsW1EoIZ0oRmmAd/FR1drY+OiLVK6A=" # DOCKER_USER
+    - secure: "nZcr+Ei/2oMN3cS8TJnG401PMZ6tNoo/y+KLhNAEBpxHPO6y48WB78g+9m9xB9MXCWvCjazmtBVyWPU9kVbO0qq/v747Ky++EYlsXerIgm4zvHD+JiK/ywrlKat/ayjy05/kvh+1aSO2n4CGBMz/g1RPsksFm8t0CewOrZvgO6REcYxXAcJ68q/FdmxqvSCAJi8wFTpAFNDlTd8lJwxYO1JZ7wi7DJbwlEYOmjWS98ENpzrpM9ROzlCUCFYTj/dLpBtQO0dAv88WPzySYNJZLR8Emtr9Kn7oHaEeNr2IQnuSW+L5wMW8n11b9VHG2+utfigDzFl2y4nvLKDtTMOfK6hiQpLJckRraio5OpjksMaD2Ds5Fz0JuH6kaTLRyoPL+Ofat/8OiA6jh0wQ4NmrHwoPYiFaWk4hYs1DSTI5pnB2NCAcLvHMt6QOIw+jc1tP2EZ8i6/hbgJDNTU06MAZH4QQQWsee6Ful8Fqm5FEFKj9A+0xb2JPGos5hAnK3VC3Wl7dXIa8YUXEnaFD+DqDOX6Nj2OX6oj4pth9WU/6/Kvgh9uRLWQPjg64xUTRaJ/i7hB8h7gEzNMOh2wMZF70ikkAFl4gG/0gEMvn33W3IiD9D4S1tXiSFhPghSyoaey2Z70BFbfdA5thH3/2pe6uBCwBkIluc3720S+kI/BzeGw=" # DOCKER_PASS
 
-# later: multiple test branches?
-
-# after_deploy:
-
-# after_script:
+    # - COMMIT=${TRAVIS_COMMIT::8}
