@@ -1,0 +1,39 @@
+language: go
+
+go:
+  - 1.6
+
+# addons:
+
+# before_install:
+
+install:
+  - docker build -t gameserver .
+  - docker run -d -p 127.0.0.1:80:8080 --name gameserver1 gameserver
+
+# before_script:
+
+script:
+  - docker ps | grep -q gameserver1
+
+# after_success:
+
+# after_failure:
+
+before_deploy:
+
+deploy:
+  skip_cleanup: true
+  provider: script
+  script: deploy.sh
+  on:
+    branch: master
+
+# after_deploy:
+
+# after_script:
+
+sudo: required
+
+services:
+  - docker
