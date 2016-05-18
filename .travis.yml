@@ -1,9 +1,12 @@
+sudo: required
+
+services:
+  - docker
+
 language: go
 
 go:
   - 1.6
-
-# addons:
 
 # before_install:
 
@@ -17,25 +20,20 @@ script:
   - docker ps | grep -q gameserver1
 
 # after_success:
-# deploy to docker hub?
 
 # after_failure:
 
-before_deploy:
-  - chmod +x deploy.sh
+before_deploy: # docker login?
 
 deploy:
   skip_cleanup: true
   provider: script
-  script: deploy.sh
+  script: "./deploy.sh" # deploy to docker hub?
   on:
     branch: master
+
+# later: multiple test branches?
 
 # after_deploy:
 
 # after_script:
-
-sudo: required
-
-services:
-  - docker
