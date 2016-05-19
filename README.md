@@ -8,13 +8,9 @@ Takes requests from smartphone clients and takes action or returns information
 - HTTPS
 - required version of api
 
-## Docker
+## Deployment
 
+```shell
+# ssh access to the server is required
+sup (staging|production) deploy
 ```
-$ docker build -t my-golang-app .
-$ docker run -it --rm --name my-running-app my-golang-app
-```
-
-## Travis
-
-let's trigger the first build with docker
