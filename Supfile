@@ -1,0 +1,73 @@
+# Supfile
+---
+version: 0.3
+env:
+  IMAGE: filipre/gameserver
+  NAMES: gameserver1 gameserver2 gameserver3 gameserver4
+networks:
+  staging:
+    env:
+      DOCKER_TLS_VERIFY: 1
+      DOCKER_HOST: tcp://192.168.99.102:2376
+      DOCKER_CERT_PATH: /Users/rene/.docker/machine/machines/stagingServer
+      DOCKER_MACHINE_NAME: stagingServer
+    hosts:
+      - docker@192.168.99.102
+  production:
+    env:
+      DOCKER_TLS_VERIFY: 1
+      DOCKER_HOST: tcp://192.168.99.100:2376
+      DOCKER_CERT_PATH: /Users/rene/.docker/machine/machines/productionServer
+      DOCKER_MACHINE_NAME: productionServer
+    hosts:
+      - docker@192.168.99.100
+commands:
+  loop:
+    desc: loop test
+    run: >
+      for name in $NAMES; do
+         echo "Welcome $name times";
+      done;
+  ping:
+    desc: Print uname and current date/time.
+    run: uname -a; date
+  pull:
+    desc: Pull latest Docker image
+    run: sudo docker pull $IMAGE
+  create:
+    desc: Create Docker containers of the same image
+    run: >
+      for name in $NAMES; do
+         sudo docker create --restart=always -P --name=$name $IMAGE:latest || exit 0;
+      done;
+  start:
+    desc: Start the Docker containers
+    run: >
+      for name in $NAMES; do
+         sudo docker start $name || exit 0;
+      done;
+  stop:
+    desc: Stop the Docker containers
+    run: >
+      for name in $NAMES; do
+         sudo docker stop $name || exit 0;
+      done;
+  restart:
+    desc: Restart the Docker containers
+    run: >
+      for name in $NAMES; do
+         sudo docker restart $name || exit 0;
+      done;
+  rm:
+    desc: Remove the Docker containers
+    run: >
+      for name in $NAMES; do
+         sudo docker rm $name || exit 0;
+      done;
+targets:
+  deploy:
+    - pull
+    - stop
+    - rm
+    - create
+    - start
