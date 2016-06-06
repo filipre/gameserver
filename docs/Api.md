@@ -4,7 +4,7 @@ Request made from the smartphone client
 Not available to the user
 Security: Oauth or something like that...
 
-## Version 1
+## Version 0.1
 
 - `PUT: /player`
 - `GET: /player`
@@ -32,6 +32,7 @@ Security: Oauth or something like that...
 - `POST: /league/:leagueId/member/:memberId`
 - `DELETE: /league/:leagueId/member/:memberId`
 
+## Version 0.2
 
 - `PUT: /league/:leagueId/stadium`
 - `GET: /league/:leagueId/stadium`
@@ -58,7 +59,7 @@ Security: Oauth or something like that...
 - *`POST: /league/:leagueId/match/:matchId/verify`*
 
 
-## Version 2+
+## Version 0.3+
 
 <!--
 - `PUT: /league/:leagueId/member/:memberId/friends`

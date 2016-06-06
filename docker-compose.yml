@@ -1,0 +1,25 @@
+version: '2'
+services:
+  gameserver:
+    build: .
+    ports:
+      - "8888:8888"
+    depends_on:
+      - postgres
+    links:
+      - postgres
+    environment:
+      - DATABASE_URL=postgres://postgres:${POSTGRES_PASSWORD}@postgres:5432/postgres?sslmode=disable
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=postgres
+volumes:
+  postgres-data:
+    driver: local
